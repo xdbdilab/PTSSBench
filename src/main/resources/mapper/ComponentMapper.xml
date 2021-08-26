@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdilab.colosseum.mapper.ComponentMapper">
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.Component">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="component_name" jdbcType="VARCHAR" property="componentName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="fk_user_id" jdbcType="BIGINT" property="fkUserId" />
+    <result column="component_file" jdbcType="VARCHAR" property="componentFile" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="input_stub" jdbcType="VARCHAR" property="inputStub" />
+    <result column="output_stub" jdbcType="VARCHAR" property="outputStub" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="logo_path" jdbcType="VARCHAR" property="logoPath" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, component_name, description, fk_user_id, component_file, image, input_stub, 
+    output_stub, create_time, modify_time,logo_path
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from component
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from component
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.bdilab.colosseum.domain.Component">
+    insert into component (id, type, component_name, 
+      description, fk_user_id, component_file, 
+      image, input_stub, output_stub, 
+      create_time, modify_time, logo_path
+      )
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=TINYINT}, #{componentName,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{fkUserId,jdbcType=BIGINT}, #{componentFile,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR}, #{inputStub,jdbcType=VARCHAR}, #{outputStub,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP},#{logoPath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdilab.colosseum.domain.Component">
+    insert into component
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="componentName != null">
+        component_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="fkUserId != null">
+        fk_user_id,
+      </if>
+      <if test="componentFile != null">
+        component_file,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="inputStub != null">
+        input_stub,
+      </if>
+      <if test="outputStub != null">
+        output_stub,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="logoPath != null">
+        logo_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="componentName != null">
+        #{componentName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserId != null">
+        #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="componentFile != null">
+        #{componentFile,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="inputStub != null">
+        #{inputStub,jdbcType=VARCHAR},
+      </if>
+      <if test="outputStub != null">
+        #{outputStub,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoPath != null">
+        #{logoPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.Component">
+    update component
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="componentName != null">
+        component_name = #{componentName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserId != null">
+        fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="componentFile != null">
+        component_file = #{componentFile,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="inputStub != null">
+        input_stub = #{inputStub,jdbcType=VARCHAR},
+      </if>
+      <if test="outputStub != null">
+        output_stub = #{outputStub,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoPath != null">
+        logo_path = #{logoPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.Component">
+    update component
+    set type = #{type,jdbcType=TINYINT},
+      component_name = #{componentName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      component_file = #{componentFile,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      input_stub = #{inputStub,jdbcType=VARCHAR},
+      output_stub = #{outputStub,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      logo_path= #{logoPath,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="selectAllPublicComponent" resultType="com.bdilab.colosseum.domain.Component">
+        select * from component where component.fk_user_id=1
+    </select>
+
+    <select id="selectByUserId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.domain.Component">
+        SELECT * FROM component WHERE component.fk_user_id=#{userId}
+    </select>
+
+  <select id="selectTypeByComponentName" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select type
+    from component
+    where component_name = #{componentName}
+  </select>
+</mapper>

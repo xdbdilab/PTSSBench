@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bdilab.colosseum.mapper.UserWorkloadMapper" >
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.UserWorkload" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="fk_user_id" property="fkUserId" jdbcType="BIGINT" />
+    <result column="workload_name" property="workloadName" jdbcType="VARCHAR" />
+    <result column="workload_version" property="workloadVersion" jdbcType="VARCHAR" />
+    <result column="install_path" property="installPath" jdbcType="VARCHAR" />
+    <result column="performance" property="performance" jdbcType="VARCHAR" />
+    <result column="test_shell_cmd" property="testShellCmd" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fk_user_id, workload_name, workload_version, install_path, performance, test_shell_cmd, create_time,
+    modify_time,exec_params
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_workload
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_workload
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bdilab.colosseum.domain.UserWorkload" useGeneratedKeys="true" keyProperty="id">
+    insert into user_workload (id, fk_user_id, workload_name, 
+      workload_version, install_path, performance, test_shell_cmd,
+      create_time, modify_time,exec_params)
+    values (#{id,jdbcType=BIGINT}, #{fkUserId,jdbcType=BIGINT}, #{workloadName,jdbcType=VARCHAR}, 
+      #{workloadVersion,jdbcType=VARCHAR}, #{installPath,jdbcType=VARCHAR}, #{performance,jdbcType=VARCHAR}, #{testShellCmd,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP},#{execParams,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdilab.colosseum.domain.UserWorkload" >
+    insert into user_workload
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkUserId != null" >
+        fk_user_id,
+      </if>
+      <if test="workloadName != null" >
+        workload_name,
+      </if>
+      <if test="workloadVersion != null" >
+        workload_version,
+      </if>
+      <if test="installPath != null" >
+        install_path,
+      </if>
+      <if test="performance != null" >
+        performance,
+      </if>
+      <if test="testShellCmd != null" >
+        test_shell_cmd,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fkUserId != null" >
+        #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="workloadName != null" >
+        #{workloadName,jdbcType=VARCHAR},
+      </if>
+      <if test="workloadVersion != null" >
+        #{workloadVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="installPath != null" >
+        #{installPath,jdbcType=VARCHAR},
+      </if>
+      <if test="performance != null" >
+        #{performance,jdbcType=VARCHAR},
+      </if>
+      <if test="testShellCmd != null" >
+        #{testShellCmd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.UserWorkload" >
+    update user_workload
+    <set >
+      <if test="fkUserId != null" >
+        fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="workloadName != null" >
+        workload_name = #{workloadName,jdbcType=VARCHAR},
+      </if>
+      <if test="workloadVersion != null" >
+        workload_version = #{workloadVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="installPath != null" >
+        install_path = #{installPath,jdbcType=VARCHAR},
+      </if>
+      <if test="performance != null" >
+        performance = #{performance,jdbcType=VARCHAR},
+      </if>
+      <if test="testShellCmd != null" >
+        test_shell_cmd = #{testShellCmd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.UserWorkload" >
+    update user_workload
+    set fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      workload_name = #{workloadName,jdbcType=VARCHAR},
+      workload_version = #{workloadVersion,jdbcType=VARCHAR},
+      install_path = #{installPath,jdbcType=VARCHAR},
+      performance = #{performance,jdbcType=VARCHAR},
+      test_shell_cmd = #{testShellCmd,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bdilab.colosseum.mapper.PerformanceGetMethodMapper" >
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.PerformanceGetMethod" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="sut_name" property="sutName" jdbcType="VARCHAR" />
+    <result column="get_performance_url" property="getPerformanceUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sut_name, get_performance_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from performance_get_method
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from performance_get_method
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bdilab.colosseum.domain.PerformanceGetMethod" >
+    insert into performance_get_method (id, sut_name, get_performance_url
+      )
+    values (#{id,jdbcType=BIGINT}, #{sutName,jdbcType=VARCHAR}, #{getPerformanceUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdilab.colosseum.domain.PerformanceGetMethod" >
+    insert into performance_get_method
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sutName != null" >
+        sut_name,
+      </if>
+      <if test="getPerformanceUrl != null" >
+        get_performance_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sutName != null" >
+        #{sutName,jdbcType=VARCHAR},
+      </if>
+      <if test="getPerformanceUrl != null" >
+        #{getPerformanceUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.PerformanceGetMethod" >
+    update performance_get_method
+    <set >
+      <if test="sutName != null" >
+        sut_name = #{sutName,jdbcType=VARCHAR},
+      </if>
+      <if test="getPerformanceUrl != null" >
+        get_performance_url = #{getPerformanceUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.PerformanceGetMethod" >
+    update performance_get_method
+    set sut_name = #{sutName,jdbcType=VARCHAR},
+      get_performance_url = #{getPerformanceUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectBySutName" parameterType="java.lang.String" resultType="com.bdilab.colosseum.domain.PerformanceGetMethod">
+    select
+    <include refid="Base_Column_List" />
+    from performance_get_method
+    where sut_name = #{sutName,jdbcType=VARCHAR}
+  </select>
+</mapper>

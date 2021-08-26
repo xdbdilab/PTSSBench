@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bdilab.colosseum.mapper.ExperimentRunMapper" >
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.ExperimentRun" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="fk_experiment_id" property="fkExperimentId" jdbcType="BIGINT" />
+    <result column="run_id" property="runId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fk_experiment_id, run_id, status, result, start_time, end_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from experiment_run
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from experiment_run
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.bdilab.colosseum.domain.ExperimentRun" >
+    insert into experiment_run (id, fk_experiment_id, run_id, 
+      status, result, start_time, 
+      end_time)
+    values (#{id,jdbcType=BIGINT}, #{fkExperimentId,jdbcType=BIGINT}, #{runId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{result,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" useGeneratedKeys="true" parameterType="com.bdilab.colosseum.domain.ExperimentRun" >
+    insert into experiment_run
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkExperimentId != null" >
+        fk_experiment_id,
+      </if>
+      <if test="runId != null" >
+        run_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+        start_time,
+      <if test="endTime != null" >
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fkExperimentId != null" >
+        #{fkExperimentId,jdbcType=BIGINT},
+      </if>
+      <if test="runId != null" >
+        #{runId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      now(),
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.ExperimentRun" >
+    update experiment_run
+    <set >
+      <if test="fkExperimentId != null" >
+        fk_experiment_id = #{fkExperimentId,jdbcType=BIGINT},
+      </if>
+      <if test="runId != null" >
+        run_id = #{runId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.ExperimentRun" >
+    update experiment_run
+    set fk_experiment_id = #{fkExperimentId,jdbcType=BIGINT},
+      run_id = #{runId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      result = #{result,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateResultByRunId" parameterType="com.bdilab.colosseum.domain.ExperimentRun" >
+    update experiment_run
+    set result = #{result,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where run_id = #{runId,jdbcType=BIGINT}
+  </update>
+
+  <select id="checkById" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select count(*)
+    from experiment_run
+    where id = #{resultId}
+  </select>
+  <select id="selectByExperimentIdAndUserId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.vo.ExperimentResultVO">
+    select experiment_run.id as id, experiment_run.fk_experiment_id as experimentId,
+    experiment.experiment_name as experimentName, experiment.description as experimentDescription,
+    experiment_run.status as status, experiment_run.result as result,
+    experiment_run.start_time as startTime, experiment_run.end_time as endTime
+    from experiment_run, experiment
+    where experiment_run.fk_experiment_id = experiment.id
+    <if test="experimentId != null">
+      and experiment_run.fk_experiment_id = #{experimentId}
+    </if>
+  </select>
+  <select id="selectByResultId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.vo.ExperimentResultDetailVO">
+    select experiment_run.id as id, experiment_run.fk_experiment_id as experimentId,
+    experiment_run.status as status, experiment_run.result as result,
+    experiment_run.start_time as startTime, experiment_run.end_time as endTime
+    from experiment_run
+    where experiment_run.id = #{resultId}
+  </select>
+  <select id="selectRunIdByExperimentId" parameterType="java.lang.Long" resultType="java.lang.String">
+    select run_id
+    from experiment_run
+    where experiment_run.fk_experiment_id = #{experimentId}
+    order by start_time desc
+  </select>
+  <select id="selectByExperimentId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.domain.ExperimentRun">
+    select
+    <include refid="Base_Column_List" />
+    from experiment_run
+    where fk_experiment_id = #{experimentId}
+  </select>
+
+  <delete id="deleteByExperimentId" parameterType="java.lang.Long">
+    delete from experiment_run
+    where experiment_run.fk_experiment_id = #{experimentId}
+    and status = 1
+  </delete>
+  <select id="checkRunningExperimentByExperimentId" parameterType="java.lang.Long" resultType="java.lang.Integer" >
+   select count(*)
+   from experiment_run
+   where fk_experiment_id = #{experimentId}
+   and status = 0
+  </select>
+  <update id="deleteRunIdByExperimentId" parameterType="java.lang.Long" >
+    update experiment_run
+    set run_id = null
+    where fk_experiment_id = #{experimentId}
+  </update>
+</mapper>

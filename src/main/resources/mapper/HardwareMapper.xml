@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bdilab.colosseum.mapper.HardwareMapper" >
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.Hardware" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="hardware_name" property="hardwareName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="cpu" property="cpu" jdbcType="VARCHAR" />
+    <result column="memory" property="memory" jdbcType="VARCHAR" />
+    <result column="disk" property="disk" jdbcType="VARCHAR" />
+    <result column="bandwidth" property="bandwidth" jdbcType="VARCHAR" />
+    <result column="kernel" property="kernel" jdbcType="VARCHAR" />
+    <result column="fk_os_id" property="fkOsId" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="fk_user_id" property="fkUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, hardware_name, description, type, ip, cpu, memory, disk, bandwidth, kernel, fk_os_id, 
+    username, password, fk_user_id, create_time, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from hardware
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from hardware
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bdilab.colosseum.domain.Hardware" useGeneratedKeys="true" keyProperty="id">
+    insert into hardware (id, hardware_name, description, 
+      type, ip, cpu, memory, 
+      disk, bandwidth, kernel, 
+      fk_os_id, username, password, 
+      fk_user_id, create_time, modify_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{hardwareName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{type,jdbcType=TINYINT}, #{ip,jdbcType=VARCHAR}, #{cpu,jdbcType=VARCHAR}, #{memory,jdbcType=VARCHAR}, 
+      #{disk,jdbcType=VARCHAR}, #{bandwidth,jdbcType=VARCHAR}, #{kernel,jdbcType=VARCHAR}, 
+      #{fkOsId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{fkUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdilab.colosseum.domain.Hardware" >
+    insert into hardware
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="hardwareName != null" >
+        hardware_name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="cpu != null" >
+        cpu,
+      </if>
+      <if test="memory != null" >
+        memory,
+      </if>
+      <if test="disk != null" >
+        disk,
+      </if>
+      <if test="bandwidth != null" >
+        bandwidth,
+      </if>
+      <if test="kernel != null" >
+        kernel,
+      </if>
+      <if test="fkOsId != null" >
+        fk_os_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="fkUserId != null" >
+        fk_user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="hardwareName != null" >
+        #{hardwareName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="cpu != null" >
+        #{cpu,jdbcType=VARCHAR},
+      </if>
+      <if test="memory != null" >
+        #{memory,jdbcType=VARCHAR},
+      </if>
+      <if test="disk != null" >
+        #{disk,jdbcType=VARCHAR},
+      </if>
+      <if test="bandwidth != null" >
+        #{bandwidth,jdbcType=VARCHAR},
+      </if>
+      <if test="kernel != null" >
+        #{kernel,jdbcType=VARCHAR},
+      </if>
+      <if test="fkOsId != null" >
+        #{fkOsId,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserId != null" >
+        #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.Hardware" >
+    update hardware
+    <set >
+      <if test="hardwareName != null" >
+        hardware_name = #{hardwareName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="cpu != null" >
+        cpu = #{cpu,jdbcType=VARCHAR},
+      </if>
+      <if test="memory != null" >
+        memory = #{memory,jdbcType=VARCHAR},
+      </if>
+      <if test="disk != null" >
+        disk = #{disk,jdbcType=VARCHAR},
+      </if>
+      <if test="bandwidth != null" >
+        bandwidth = #{bandwidth,jdbcType=VARCHAR},
+      </if>
+      <if test="kernel != null" >
+        kernel = #{kernel,jdbcType=VARCHAR},
+      </if>
+      <if test="fkOsId != null" >
+        fk_os_id = #{fkOsId,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserId != null" >
+        fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.Hardware" >
+    update hardware
+    set hardware_name = #{hardwareName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      ip = #{ip,jdbcType=VARCHAR},
+      cpu = #{cpu,jdbcType=VARCHAR},
+      memory = #{memory,jdbcType=VARCHAR},
+      disk = #{disk,jdbcType=VARCHAR},
+      bandwidth = #{bandwidth,jdbcType=VARCHAR},
+      kernel = #{kernel,jdbcType=VARCHAR},
+      fk_os_id = #{fkOsId,jdbcType=BIGINT},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bdilab.colosseum.mapper.UserSutMapper" >
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.UserSut" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="fk_user_id" property="fkUserId" jdbcType="BIGINT" />
+    <result column="sut_name" property="sutName" jdbcType="VARCHAR" />
+    <result column="sut_version" property="sutVersion" jdbcType="VARCHAR" />
+    <result column="install_path" property="installPath" jdbcType="VARCHAR" />
+    <result column="parameter_file" property="parameterFile" jdbcType="VARCHAR" />
+    <result column="test_shell_cmd" property="testShellCmd" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fk_user_id, sut_name, sut_version, install_path,parameter_file, test_shell_cmd, create_time,
+    modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_sut
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_sut
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bdilab.colosseum.domain.UserSut" useGeneratedKeys="true" keyProperty="id">
+    insert into user_sut (id, fk_user_id, sut_name, 
+      sut_version, install_path,parameter_file, test_shell_cmd,
+      create_time, modify_time)
+    values (#{id,jdbcType=BIGINT}, #{fkUserId,jdbcType=BIGINT}, #{sutName,jdbcType=VARCHAR}, 
+      #{sutVersion,jdbcType=VARCHAR},#{installPath,jdbcType=VARCHAR},#{parameterFile,jdbcType=VARCHAR}, #{testShellCmd,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdilab.colosseum.domain.UserSut" >
+    insert into user_sut
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkUserId != null" >
+        fk_user_id,
+      </if>
+      <if test="sutName != null" >
+        sut_name,
+      </if>
+      <if test="sutVersion != null" >
+        sut_version,
+      </if>
+      <if test="installPath != null" >
+        install_path,
+      </if>
+      <if test="parameterFile != null" >
+        parameter_file,
+      </if>
+      <if test="testShellCmd != null" >
+        test_shell_cmd,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fkUserId != null" >
+        #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="sutName != null" >
+        #{sutName,jdbcType=VARCHAR},
+      </if>
+      <if test="sutVersion != null" >
+        #{sutVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="installPath != null" >
+        #{installPath,jdbcType=VARCHAR},
+      </if>
+      <if test="parameterFile != null" >
+        #{parameterFile,jdbcType=VARCHAR},
+      </if>
+      <if test="testShellCmd != null" >
+        #{testShellCmd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.UserSut" >
+    update user_sut
+    <set >
+      <if test="fkUserId != null" >
+        fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="sutName != null" >
+        sut_name = #{sutName,jdbcType=VARCHAR},
+      </if>
+      <if test="sutVersion != null" >
+        sut_version = #{sutVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="installPath != null" >
+        install_path = #{installPath,jdbcType=VARCHAR},
+      </if>
+      <if test="parameterFile != null" >
+        parameter_file = #{parameterFile,jdbcType=VARCHAR},
+      </if>
+      <if test="testShellCmd != null" >
+        test_shell_cmd = #{testShellCmd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.UserSut" >
+    update user_sut
+    set fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      sut_name = #{sutName,jdbcType=VARCHAR},
+      sut_version = #{sutVersion,jdbcType=VARCHAR},
+      install_path = #{installPath,jdbcType=VARCHAR},
+      parameter_file = #{parameterFile,jdbcType=VARCHAR},
+      test_shell_cmd = #{testShellCmd,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

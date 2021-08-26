@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bdilab.colosseum.mapper.SystemWorkloadMapper" >
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.SystemWorkload" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="workload_name" property="workloadName" jdbcType="VARCHAR" />
+    <result column="workload_version" property="workloadVersion" jdbcType="VARCHAR" />
+    <result column="performance" property="performance" jdbcType="VARCHAR" />
+    <result column="test_shell_cmd" property="testShellCmd" jdbcType="VARCHAR" />
+    <result column="logo_path" property="logoPath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, workload_name, workload_version, performance, test_shell_cmd,logo_path
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_workload
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByNameAndVersion" resultType="com.bdilab.colosseum.domain.SystemWorkload">
+    select
+    <include refid="Base_Column_List" />
+    from system_workload
+    where workload_name = #{name,jdbcType=BIGINT} and workload_version = #{version,jdbcType=BIGINT}
+  </select>
+  <select id="selectName" resultType="java.lang.String">
+    select workload_name
+    from system_workload
+  </select>
+  <select id="selectVersionByName" resultType="java.lang.String">
+    select workload_version
+    from system_workload
+    where workload_name = #{name,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultType="com.bdilab.colosseum.domain.SystemWorkload">
+      select *
+    from system_workload
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from system_workload
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bdilab.colosseum.domain.SystemWorkload" >
+    insert into system_workload (id, workload_name, workload_version, 
+      performance, test_shell_cmd,exec_params,logo_path)
+    values (#{id,jdbcType=BIGINT}, #{workloadName,jdbcType=VARCHAR}, #{workloadVersion,jdbcType=VARCHAR}, 
+      #{performance,jdbcType=VARCHAR}, #{testShellCmd,jdbcType=VARCHAR},#{execParams,jdbcType=VARCHAR},#{logoPath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdilab.colosseum.domain.SystemWorkload" >
+    insert into system_workload
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="workloadName != null" >
+        workload_name,
+      </if>
+      <if test="workloadVersion != null" >
+        workload_version,
+      </if>
+      <if test="performance != null" >
+        performance,
+      </if>
+      <if test="testShellCmd != null" >
+        test_shell_cmd,
+      </if>
+      <if test="logoPath != null" >
+        logo_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="workloadName != null" >
+        #{workloadName,jdbcType=VARCHAR},
+      </if>
+      <if test="workloadVersion != null" >
+        #{workloadVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="performance != null" >
+        #{performance,jdbcType=VARCHAR},
+      </if>
+      <if test="testShellCmd != null" >
+        #{testShellCmd,jdbcType=VARCHAR},
+      </if>
+      <if test="logoPath != null" >
+        #{logoPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.SystemWorkload" >
+    update system_workload
+    <set >
+      <if test="workloadName != null" >
+        workload_name = #{workloadName,jdbcType=VARCHAR},
+      </if>
+      <if test="workloadVersion != null" >
+        workload_version = #{workloadVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="performance != null" >
+        performance = #{performance,jdbcType=VARCHAR},
+      </if>
+      <if test="testShellCmd != null" >
+        test_shell_cmd = #{testShellCmd,jdbcType=VARCHAR},
+      </if>
+      <if test="execParams !=null">
+        exec_params = #{execParams,jdbcType=VARCHAR},
+      </if>
+      <if test="logoPath !=null">
+        logo_path = #{logoPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.SystemWorkload" >
+    update system_workload
+    set workload_name = #{workloadName,jdbcType=VARCHAR},
+      workload_version = #{workloadVersion,jdbcType=VARCHAR},
+      performance = #{performance,jdbcType=VARCHAR},
+      test_shell_cmd = #{testShellCmd,jdbcType=VARCHAR},
+      exec_params = #{execParams,jdbcType=VARCHAR},
+      logo_path = #{logoPath,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

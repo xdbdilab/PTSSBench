@@ -1,0 +1,17 @@
+[mysqld]
+paramList_need_to_replace_by_colosseum
+port=3306
+basedir=sutLocation_need_to_replace_by_colosseum
+datadir=sutLocation_need_to_replace_by_colosseum/data
+socket=sutLocation_need_to_replace_by_colosseum/mysql.sock
+user=mysql
+skip-grant-tables
+default_authentication_plugin=mysql_native_password
+binlog_expire_logs_seconds=600
+log-error=/var/log/mysql.log
+pid-file=sutLocation_need_to_replace_by_colosseum/data/mysql.pid
+[client]
+default-character-set=utf8
+socket=sutLocation_need_to_replace_by_colosseum/mysql.sock
+[mysql]
+socket=sutLocation_need_to_replace_by_colosseum/mysql.sock

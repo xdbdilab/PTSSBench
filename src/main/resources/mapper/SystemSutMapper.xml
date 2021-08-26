@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bdilab.colosseum.mapper.SystemSutMapper" >
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.SystemSut" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="sut_name" property="sutName" jdbcType="VARCHAR" />
+    <result column="sut_version" property="sutVersion" jdbcType="VARCHAR" />
+    <result column="parameter_file" property="parameterFile" jdbcType="VARCHAR" />
+    <result column="test_shell_cmd" property="testShellCmd" jdbcType="VARCHAR" />
+    <result column="workloads" property="workloads" jdbcType="VARCHAR" />
+    <result column="logo_path" property="logoPath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sut_name, sut_version, parameter_file, test_shell_cmd,workloads,logo_path
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_sut
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByNameAndVersion" resultType="com.bdilab.colosseum.domain.SystemSut">
+    select
+    <include refid="Base_Column_List" />
+    from system_sut
+    where sut_name = #{name,jdbcType=VARCHAR} and sut_version = #{version,jdbcType=VARCHAR}
+  </select>
+  <select id="selectName" resultType="java.lang.String">
+    select  distinct sut_name
+    from system_sut
+  </select>
+  <select id="selectVersionByName" resultType="java.lang.String">
+    select sut_version
+    from system_sut
+    where sut_name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultType="com.bdilab.colosseum.domain.SystemSut">
+    select *
+    from system_sut
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from system_sut
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bdilab.colosseum.domain.SystemSut" >
+    insert into system_sut (id, sut_name, sut_version, 
+      parameter_file, test_shell_cmd,logo_path,workloads)
+    values (#{id,jdbcType=BIGINT}, #{sutName,jdbcType=VARCHAR}, #{sutVersion,jdbcType=VARCHAR}, 
+      #{parameterFile,jdbcType=VARCHAR}, #{testShellCmd,jdbcType=VARCHAR},
+      #{logoPath,jdbcType=VARCHAR}, #{workloads,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdilab.colosseum.domain.SystemSut" >
+    insert into system_sut
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sutName != null" >
+        sut_name,
+      </if>
+      <if test="sutVersion != null" >
+        sut_version,
+      </if>
+      <if test="parameterFile != null" >
+        parameter_file,
+      </if>
+      <if test="testShellCmd != null" >
+        test_shell_cmd,
+      </if>
+      <if test="logo_path != null" >
+        logo_path,
+      </if>
+      <if test="workloads != null" >
+        workloads,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sutName != null" >
+        #{sutName,jdbcType=VARCHAR},
+      </if>
+      <if test="sutVersion != null" >
+        #{sutVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="parameterFile != null" >
+        #{parameterFile,jdbcType=VARCHAR},
+      </if>
+      <if test="testShellCmd != null" >
+        #{testShellCmd,jdbcType=VARCHAR},
+      </if>
+      <if test="logo_path != null" >
+        #{logoPath,jdbcType=VARCHAR},
+      </if>
+      <if test="workloads != null" >
+        #{workloads,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.SystemSut" >
+    update system_sut
+    <set >
+      <if test="sutName != null" >
+        sut_name = #{sutName,jdbcType=VARCHAR},
+      </if>
+      <if test="sutVersion != null" >
+        sut_version = #{sutVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="parameterFile != null" >
+        parameter_file = #{parameterFile,jdbcType=VARCHAR},
+      </if>
+      <if test="testShellCmd != null" >
+        test_shell_cmd = #{testShellCmd,jdbcType=VARCHAR},
+      </if>
+      <if test="logoPath != null" >
+        logo_path = #{logoPath,jdbcType=VARCHAR},
+      </if>
+      <if test="workloads != null" >
+        workloads = #{workloads,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.SystemSut" >
+    update system_sut
+    set sut_name = #{sutName,jdbcType=VARCHAR},
+      sut_version = #{sutVersion,jdbcType=VARCHAR},
+      parameter_file = #{parameterFile,jdbcType=VARCHAR},
+      test_shell_cmd = #{testShellCmd,jdbcType=VARCHAR},
+      logo_path = #{logoPath,jdbcType=VARCHAR},
+      workloads = #{workloads,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

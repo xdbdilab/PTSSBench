@@ -1,0 +1,10 @@
+name	type	minValue	maxValue	validValue	defaultValue
+replBacklogSize	Integer				10
+hashMaxZiplistValue	Integer				60
+hashMaxZiplistEntries	Integer				862
+listMaxZiplistSize	Integer				3
+activeDefragIgnoreBytes	Integer				162
+activeDefragThresholdLower	Integer				15
+replDisableTcpNodelay	boolean				no
+hllSparseMaxBytes	Integer				11398
+hz	Integer				22

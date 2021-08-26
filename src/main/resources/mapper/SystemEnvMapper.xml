@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bdilab.colosseum.mapper.SystemEnvMapper" >
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.SystemEnv" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="fk_sut_id" property="fkSutId" jdbcType="BIGINT" />
+    <result column="parameters" property="parameters" jdbcType="VARCHAR" />
+    <result column="fk_hardware_id" property="fkHardwareId" jdbcType="BIGINT" />
+    <result column="fk_user_id" property="fkUserId" jdbcType="BIGINT" />
+    <result column="fk_workload_id" property="fkWorkloadId" jdbcType="BIGINT" />
+    <result column="performance" property="performance" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="env_name" property="envName" jdbcType="VARCHAR" />
+    <result column="env_desc" property="envDesc" jdbcType="VARCHAR" />
+    <result column="logo_path" property="logoPath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fk_sut_id, parameters, fk_hardware_id, fk_user_id, fk_workload_id, performance,
+    create_time, modify_time, env_name, env_desc,logo_path
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_env
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByFkUserId" resultType="com.bdilab.colosseum.domain.SystemEnv">
+    select
+    <include refid="Base_Column_List" />
+    from system_env
+    where fk_user_id = #{fkUserId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByIdAndUserId" resultType="com.bdilab.colosseum.domain.SystemEnv">
+    select
+    <include refid="Base_Column_List" />
+    from system_env
+    where fk_user_id = #{userId,jdbcType=BIGINT} and id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectDetailByIdAndUserId" resultType="com.bdilab.colosseum.vo.SystemEnvDetailVo">
+    SELECT se.env_name as envName,se.env_desc as envDesc,se.fk_user_id as fkUserId,se.parameters as parameters,se.performance as performance,se.logo_path as logoPath,
+    us.sut_name as sutName,us.sut_version as sutVersion,us.parameter_file as parameterFile,us.test_shell_cmd as sutTestShellCmd,us.install_path as sutInstallPath,
+    uw.workload_name as workloadName,uw.workload_version as workloadVersion,uw.performance as workloadPerformance,uw.test_shell_cmd as workloadTestShellCmd,uw.install_path as workloadInstallPath,
+    h.hardware_name as hardwareName,h.description as hardwareDesc,h.type as hardType,h.ip,h.cpu,h.memory,h.disk,h.bandwidth,h.kernel,h.username as hardUsername,h.password as hardPassword,
+    os.os_name as osName,os.version as osVersion
+    FROM system_env as se
+    LEFT JOIN user_sut as us ON us.id = se.fk_sut_id
+    LEFT JOIN user_workload as uw on uw.id = se.fk_workload_id
+    LEFT JOIN hardware as h on h.id = se.fk_hardware_id
+    LEFT JOIN operating_system as os on os.id = h.fk_os_id
+    where se.fk_user_id = #{userId,jdbcType=BIGINT} and se.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from system_env
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bdilab.colosseum.domain.SystemEnv" useGeneratedKeys="true" keyProperty="id">
+    insert into system_env (id, fk_sut_id, parameters,
+      fk_hardware_id, fk_user_id, fk_workload_id, 
+      performance, create_time, modify_time, env_name, env_desc,logo_path
+      )
+    values (#{id,jdbcType=BIGINT}, #{fkSutId,jdbcType=BIGINT}, #{parameters,jdbcType=VARCHAR},
+      #{fkHardwareId,jdbcType=BIGINT}, #{fkUserId,jdbcType=BIGINT}, #{fkWorkloadId,jdbcType=BIGINT}, 
+      #{performance,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP},
+      #{envName,jdbcType=VARCHAR},#{envDesc,jdbcType=VARCHAR},#{logoPath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdilab.colosseum.domain.SystemEnv" >
+    insert into system_env
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkSutId != null" >
+        fk_sut_id,
+      </if>
+      <if test="parameters != null" >
+        parameters,
+      </if>
+      <if test="fkHardwareId != null" >
+        fk_hardware_id,
+      </if>
+      <if test="fkUserId != null" >
+        fk_user_id,
+      </if>
+      <if test="fkWorkloadId != null" >
+        fk_workload_id,
+      </if>
+      <if test="performance != null" >
+        performance,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="envName != null" >
+        env_name,
+      </if>
+      <if test="envDesc != null" >
+        env_desc,
+      </if>
+      <if test="logoPath != null" >
+        logo_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fkSutId != null" >
+        #{fkSutId,jdbcType=BIGINT},
+      </if>
+      <if test="parameters != null" >
+        #{parameters,jdbcType=VARCHAR},
+      </if>
+      <if test="fkHardwareId != null" >
+        #{fkHardwareId,jdbcType=BIGINT},
+      </if>
+      <if test="fkUserId != null" >
+        #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="fkWorkloadId != null" >
+        #{fkWorkloadId,jdbcType=BIGINT},
+      </if>
+      <if test="performance != null" >
+        #{performance,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="envName != null" >
+        #{envName,jdbcType=VARCHAR},
+      </if>
+      <if test="envDesc != null" >
+        #{envDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="logoPath != null" >
+        #{logoPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.SystemEnv" >
+    update system_env
+    <set >
+      <if test="fkSutId != null" >
+        fk_sut_id = #{fkSutId,jdbcType=BIGINT},
+      </if>
+      <if test="parameters != null" >
+        parameters = #{parameters,jdbcType=VARCHAR},
+      </if>
+      <if test="fkHardwareId != null" >
+        fk_hardware_id = #{fkHardwareId,jdbcType=BIGINT},
+      </if>
+      <if test="fkUserId != null" >
+        fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="fkWorkloadId != null" >
+        fk_workload_id = #{fkWorkloadId,jdbcType=BIGINT},
+      </if>
+      <if test="performance != null" >
+        performance = #{performance,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="envName != null" >
+        env_name = #{envName,jdbcType=VARCHAR},
+      </if>
+      <if test="envDesc != null" >
+        env_desc = #{envDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="logoPath != null" >
+        logo_path = #{logoPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.SystemEnv" >
+    update system_env
+    set fk_sut_id = #{fkSutId,jdbcType=BIGINT},
+      parameters = #{parameters,jdbcType=VARCHAR},
+      fk_hardware_id = #{fkHardwareId,jdbcType=BIGINT},
+      fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      fk_workload_id = #{fkWorkloadId,jdbcType=BIGINT},
+      performance = #{performance,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      env_name = #{envName,jdbcType=VARCHAR},
+      env_desc = #{envDesc,jdbcType=VARCHAR},
+      logo_path = #{logoPath,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectBySysEnvId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.vo.SystemEnvVO">
+    select a.id as id, e.os_name as osName, e.version as version,
+    d.hardware_name as hardwareName, d.description as hardwareDescription, d.type as type, d.ip as ip, d.cpu as cpu, d.memory as memory, d.disk as disk, d.bandwidth as bandwidth, d.kernel as kernel, d.username as username, d.password as password,
+    b.sut_name as sutName, b.sut_version as sutVersion,
+    c.workload_name as workloadName, c.workload_version as workloadVersion,
+    a.create_time as createTime, a.modify_time as modifyTime
+    from system_env as a, user_sut as b, user_workload as c, hardware as d, operating_system as e
+    where a.id = #{sysEnvId}
+    and a.fk_hardware_id = d.id
+    and d.fk_os_id = e.id
+    and a.fk_sut_id = b.id
+    and a.fk_workload_id = c.id
+  </select>
+  <select id="checkBySystemEnvId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select count(*)
+    from system_env
+    where id = #{envId}
+  </select>
+  <select id="selectSoftWareLocationByEnvId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.bo.SoftwareLocationBO">
+      select b.install_path as sutPath, c.install_path as workLoadPath, d.ip as ip,
+      d.username as username, d.password as password
+      from system_env as a, user_sut as b, user_workload as c, hardware as d
+      where a.id = #{envId}
+      and b.id = a.fk_sut_id
+      and c.id = a.fk_workload_id
+      and d.id = a.fk_hardware_id
+  </select>
+  <select id="selectSutNameAndSutVersionByEnvId" parameterType="java.lang.Long" resultType="java.util.Map">
+    select sut_name, sut_version
+    from system_env, user_sut
+    where system_env.id = #{envId}
+    and user_sut.id = system_env.fk_sut_id
+  </select>
+
+  <select id="selectWorkloadNameAndWorkloadVersionByEnvId" parameterType="java.lang.Long" resultType="java.util.Map">
+    select workload_name, workload_version
+    from system_env, user_workload
+    where system_env.id = #{envId}
+    and user_workload.id = system_env.fk_workload_id
+  </select>
+</mapper>

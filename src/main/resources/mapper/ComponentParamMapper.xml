@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdilab.colosseum.mapper.ComponentParamMapper">
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.ComponentParam">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="param_name" jdbcType="VARCHAR" property="paramName" />
+    <result column="fk_component_id" jdbcType="BIGINT" property="fkComponentId" />
+    <result column="param_type" jdbcType="VARCHAR" property="paramType" />
+    <result column="default_value" jdbcType="VARCHAR" property="defaultValue" />
+    <result column="param_desc" jdbcType="VARCHAR" property="paramDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, param_name, fk_component_id, param_type, default_value, param_desc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from component_param
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select *
+    from component_param
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from component_param
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bdilab.colosseum.domain.ComponentParam">
+    insert into component_param (id, param_name, fk_component_id, 
+      param_type, default_value, param_desc
+      )
+    values (#{id,jdbcType=BIGINT}, #{paramName,jdbcType=VARCHAR}, #{fkComponentId,jdbcType=BIGINT}, 
+      #{paramType,jdbcType=VARCHAR}, #{defaultValue,jdbcType=VARCHAR}, #{paramDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdilab.colosseum.domain.ComponentParam">
+    insert into component_param
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="paramName != null">
+        param_name,
+      </if>
+      <if test="fkComponentId != null">
+        fk_component_id,
+      </if>
+      <if test="paramType != null">
+        param_type,
+      </if>
+      <if test="defaultValue != null">
+        default_value,
+      </if>
+      <if test="paramDesc != null">
+        param_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="paramName != null">
+        #{paramName,jdbcType=VARCHAR},
+      </if>
+      <if test="fkComponentId != null">
+        #{fkComponentId,jdbcType=BIGINT},
+      </if>
+      <if test="paramType != null">
+        #{paramType,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultValue != null">
+        #{defaultValue,jdbcType=VARCHAR},
+      </if>
+      <if test="paramDesc != null">
+        #{paramDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.ComponentParam">
+    update component_param
+    <set>
+      <if test="paramName != null">
+        param_name = #{paramName,jdbcType=VARCHAR},
+      </if>
+      <if test="fkComponentId != null">
+        fk_component_id = #{fkComponentId,jdbcType=BIGINT},
+      </if>
+      <if test="paramType != null">
+        param_type = #{paramType,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultValue != null">
+        default_value = #{defaultValue,jdbcType=VARCHAR},
+      </if>
+      <if test="paramDesc != null">
+        param_desc = #{paramDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.ComponentParam">
+    update component_param
+    set param_name = #{paramName,jdbcType=VARCHAR},
+      fk_component_id = #{fkComponentId,jdbcType=BIGINT},
+      param_type = #{paramType,jdbcType=VARCHAR},
+      default_value = #{defaultValue,jdbcType=VARCHAR},
+      param_desc = #{paramDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="selectByComponentId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.domain.ComponentParam">
+        SELECT * FROM component_param WHERE component_param.fk_component_id=#{componentId}
+    </select>
+</mapper>

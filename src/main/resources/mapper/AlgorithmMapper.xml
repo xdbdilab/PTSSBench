@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdilab.colosseum.mapper.AlgorithmMapper">
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.Algorithm">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="algorithm_name" jdbcType="VARCHAR" property="algorithmName" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="fk_user_id" jdbcType="BIGINT" property="fkUserId" />
+    <result column="pipeline_addr" jdbcType="VARCHAR" property="pipelineAddr" />
+    <result column="pipeline_yaml" jdbcType="VARCHAR" property="pipelineYaml" />
+    <result column="pipeline_id" jdbcType="VARCHAR" property="pipelineId" />
+    <result column="param_value" jdbcType="VARCHAR" property="paramValue" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="is_template" jdbcType="TINYINT" property="isTemplate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bdilab.colosseum.domain.Algorithm">
+    <result column="ggeditor_object_string" jdbcType="LONGVARCHAR" property="ggeditorObjectString" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, algorithm_name, tag, description, fk_user_id, pipeline_addr, pipeline_yaml, pipeline_id, 
+    param_value, create_time, modify_time,logo_path,is_template
+  </sql>
+  <sql id="Blob_Column_List">
+    ggeditor_object_string
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from algorithm
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from algorithm
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bdilab.colosseum.domain.Algorithm">
+    insert into algorithm (id, algorithm_name, tag, 
+      description, fk_user_id, pipeline_addr, 
+      pipeline_yaml, pipeline_id, param_value, 
+      create_time, modify_time, ggeditor_object_string,logo_path,is_template
+      )
+    values (#{id,jdbcType=BIGINT}, #{algorithmName,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{fkUserId,jdbcType=BIGINT}, #{pipelineAddr,jdbcType=VARCHAR}, 
+      #{pipelineYaml,jdbcType=VARCHAR}, #{pipelineId,jdbcType=VARCHAR}, #{paramValue,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{ggeditorObjectString,jdbcType=LONGVARCHAR},
+      #{logoPath,jdbcType=VARCHAR},#{isTemplate,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdilab.colosseum.domain.Algorithm">
+    insert into algorithm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="algorithmName != null">
+        algorithm_name,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="fkUserId != null">
+        fk_user_id,
+      </if>
+      <if test="pipelineAddr != null">
+        pipeline_addr,
+      </if>
+      <if test="pipelineYaml != null">
+        pipeline_yaml,
+      </if>
+      <if test="pipelineId != null">
+        pipeline_id,
+      </if>
+      <if test="paramValue != null">
+        param_value,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="ggeditorObjectString != null">
+        ggeditor_object_string,
+      </if>
+      <if test="logoPath != null">
+        logo_path,
+      </if>
+      <if test="isTemplate != null">
+        is_template,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="algorithmName != null">
+        #{algorithmName,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserId != null">
+        #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="pipelineAddr != null">
+        #{pipelineAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="pipelineYaml != null">
+        #{pipelineYaml,jdbcType=VARCHAR},
+      </if>
+      <if test="pipelineId != null">
+        #{pipelineId,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue != null">
+        #{paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ggeditorObjectString != null">
+        #{ggeditorObjectString,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logoPath != null">
+        #{logoPath,jdbcType=VARCHAR},
+      </if>
+      <if test="isTemplate != null">
+        #{isTemplate,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.Algorithm">
+    update algorithm
+    <set>
+      <if test="algorithmName != null">
+        algorithm_name = #{algorithmName,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserId != null">
+        fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="pipelineAddr != null">
+        pipeline_addr = #{pipelineAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="pipelineYaml != null">
+        pipeline_yaml = #{pipelineYaml,jdbcType=VARCHAR},
+      </if>
+      <if test="pipelineId != null">
+        pipeline_id = #{pipelineId,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue != null">
+        param_value = #{paramValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ggeditorObjectString != null">
+        ggeditor_object_string = #{ggeditorObjectString,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logoPath != null">
+        logo_path = #{logoPath,jdbcType=VARCHAR},
+      </if>
+      <if test="isTemplate != null">
+        is_Template= #{isTemplate,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.bdilab.colosseum.domain.Algorithm">
+    update algorithm
+    set algorithm_name = #{algorithmName,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      pipeline_addr = #{pipelineAddr,jdbcType=VARCHAR},
+      pipeline_yaml = #{pipelineYaml,jdbcType=VARCHAR},
+      pipeline_id = #{pipelineId,jdbcType=VARCHAR},
+      param_value = #{paramValue,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      ggeditor_object_string = #{ggeditorObjectString,jdbcType=LONGVARCHAR},
+      logo_path = #{logoPath,jdbcType=VARCHAR},
+      is_template = #{isTemplate,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.Algorithm">
+    update algorithm
+    set algorithm_name = #{algorithmName,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      pipeline_addr = #{pipelineAddr,jdbcType=VARCHAR},
+      pipeline_yaml = #{pipelineYaml,jdbcType=VARCHAR},
+      pipeline_id = #{pipelineId,jdbcType=VARCHAR},
+      param_value = #{paramValue,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      logo_path = #{logoPath,jdbcType=VARCHAR},
+      is_template = #{isTemplate,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectAlgorithmByUserId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.domain.Algorithm">
+        SELECT * FROM algorithm WHERE algorithm.fk_user_id=#{userId}
+    </select>
+  <select id="selectTemplateAlgorithm" resultType="com.bdilab.colosseum.domain.Algorithm">
+        SELECT * FROM algorithm WHERE algorithm.fk_user_id="1" and algorithm.is_template=1
+   </select>
+  <select id="countValidAlgorithmNums" resultType="java.lang.Integer">
+    select count(*) from algorithm
+    <foreach collection="algorithmIds" item="algorithmId" separator=","
+             open="where id in(" close=")">
+      #{algorithmId}
+    </foreach>
+    and (fk_user_id = #{userId} or is_template = 1)
+  </select>
+
+  <select id="selectAgForEpDetailVOByAgIds" resultType="com.bdilab.colosseum.vo.AlgorithmForExpDetailVO">
+    select id, algorithm_name, tag, description, ggeditor_object_string, is_template
+    from algorithm
+    <foreach collection="algorithmIds" item="algorithmId" separator=","
+             open="where id in(" close=")">
+      #{algorithmId}
+    </foreach>
+  </select>
+</mapper>

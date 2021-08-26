@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bdilab.colosseum.mapper.ExperimentMapper" >
+  <resultMap id="BaseResultMap" type="com.bdilab.colosseum.domain.Experiment" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="experiment_name" property="experimentName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="fk_user_id" property="fkUserId" jdbcType="BIGINT" />
+    <result column="fk_sys_env_id" property="fkSysEnvId" jdbcType="BIGINT" />
+    <result column="all_params" property="allParams" jdbcType="LONGVARCHAR" />
+    <result column="black_list" property="blackList" jdbcType="LONGVARCHAR" />
+    <result column="white_list" property="whiteList" jdbcType="LONGVARCHAR" />
+    <result column="fk_algorithm_ids" property="fkAlgorithmIds" jdbcType="VARCHAR" />
+    <result column="ggeditor_object_string" jdbcType="LONGVARCHAR" property="ggeditorObjectString" />
+    <result column="performance" property="performance" jdbcType="VARCHAR" />
+    <result column="metrics_setting" property="metricsSetting" jdbcType="VARCHAR" />
+    <result column="result_setting" property="resultSetting" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="logo_path" property="logoPath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, experiment_name, description, fk_user_id, fk_sys_env_id, all_params, black_list, white_list, fk_algorithm_ids, ggeditor_object_string,
+    performance, metrics_setting, result_setting, create_time, modify_time,logo_path
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from experiment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from experiment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bdilab.colosseum.domain.Experiment" >
+    insert into experiment (id, experiment_name, description, 
+      fk_user_id, fk_sys_env_id, all_params, black_list, white_list,
+      fk_algorithm_ids, ggeditor_object_string, performance, metrics_setting, result_setting,
+      create_time, modify_time,logo_path)
+    values (#{id,jdbcType=BIGINT}, #{experimentName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{fkUserId,jdbcType=BIGINT}, #{fkSysEnvId,jdbcType=BIGINT}, #{allParams,jdbcType=LONGVARCHAR},
+      #{blackList,jdbcType=LONGVARCHAR}, #{whiteList,jdbcType=LONGVARCHAR},
+      #{fkAlgorithmIds,jdbcType=VARCHAR}, #{ggeditorObjectString,jdbcType=LONGVARCHAR},
+      #{performance,jdbcType=VARCHAR},#{metricsSetting,jdbcType=VARCHAR}, #{resultSetting,jdbcType=VARCHAR},
+      now(), #{modifyTime,jdbcType=TIMESTAMP}, #{logoPath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdilab.colosseum.domain.Experiment" >
+    insert into experiment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="experimentName != null" >
+        experiment_name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="fkUserId != null" >
+        fk_user_id,
+      </if>
+      <if test="fkSysEnvId != null" >
+        fk_sys_env_id,
+      </if>
+      <if test="allParams != null" >
+        all_params,
+      </if>
+      <if test="blackList != null" >
+        black_list,
+      </if>
+      <if test="whiteList != null" >
+        white_list,
+      </if>
+      <if test="fkAlgorithmIds != null" >
+        fk_algorithm_ids,
+      </if>
+      <if test="ggeditorObjectString != null" >
+        ggeditor_object_string,
+      </if>
+      <if test="performance != null" >
+        performance,
+      </if>
+      <if test="metricsSetting != null" >
+        metrics_setting,
+      </if>
+      <if test="resultSetting != null" >
+        result_setting,
+      </if>
+        create_time,
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="logoPath != null" >
+        logo_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="experimentName != null" >
+        #{experimentName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserId != null" >
+        #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="fkSysEnvId != null" >
+        #{fkSysEnvId,jdbcType=BIGINT},
+      </if>
+      <if test="allParams != null" >
+        #{allParams,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="blackList != null" >
+        #{blackList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="whiteList != null" >
+        #{whiteList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fkAlgorithmIds != null" >
+        #{fkAlgorithmIds,jdbcType=BIGINT},
+      </if>
+      <if test="ggeditorObjectString != null" >
+        #{ggeditorObjectString,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="performance != null" >
+        #{performance,jdbcType=VARCHAR},
+      </if>
+      <if test="metricsSetting != null" >
+        #{metricsSetting,jdbcType=VARCHAR},
+      </if>
+      <if test="resultSetting != null" >
+        #{resultSetting,jdbcType=VARCHAR},
+      </if>
+      now(),
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoPath != null" >
+        #{logoPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdilab.colosseum.domain.Experiment" >
+    update experiment
+    <set >
+      <if test="experimentName != null" >
+        experiment_name = #{experimentName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserId != null" >
+        fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      </if>
+      <if test="fkSysEnvId != null" >
+        fk_sys_env_id = #{fkSysEnvId,jdbcType=BIGINT},
+      </if>
+      <if test="allParams != null" >
+        all_params = #{allParams,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="blackList != null" >
+        black_list = #{blackList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="whiteList != null" >
+        white_list = #{whiteList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fkAlgorithmIds != null" >
+        fk_algorithm_ids = #{fkAlgorithmIds,jdbcType=BIGINT},
+      </if>
+      <if test="ggeditorObjectString != null" >
+        ggeditor_object_string = #{ggeditorObjectString,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="performance != null" >
+        performance = #{performance,jdbcType=VARCHAR},
+      </if>
+      <if test="metricsSetting != null" >
+        metrics_setting = #{metricsSetting,jdbcType=VARCHAR},
+      </if>
+      <if test="resultSetting != null" >
+        result_setting = #{resultSetting,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoPath != null" >
+        logo_path = #{logoPath,jdbcType=VARCHAR},
+      </if>
+        modify_time = now(),
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdilab.colosseum.domain.Experiment" >
+    update experiment
+    set experiment_name = #{experimentName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      fk_user_id = #{fkUserId,jdbcType=BIGINT},
+      fk_sys_env_id = #{fkSysEnvId,jdbcType=BIGINT},
+      all_params = #{allParams,jdbcType=LONGVARCHAR},
+      black_list = #{blackList,jdbcType=LONGVARCHAR},
+      white_list = #{whiteList,jdbcType=LONGVARCHAR},
+      fk_algorithm_ids = #{fkAlgorithmIds,jdbcType=BIGINT},
+      ggeditor_object_string = #{ggeditorObjectString,jdbcType=LONGVARCHAR},
+      performance = #{performance,jdbcType=VARCHAR},
+      metrics_setting = #{metricsSetting,jdbcType=VARCHAR},
+      result_setting = #{resultSetting,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      logo_path = #{logoPath,jdbcType=VARCHAR},
+      modify_time = now()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByUserId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.vo.ExperimentVO">
+    select experiment.id as id, experiment_name as experimentName, description, fk_user_id as userId,
+    `user`.username as creator, experiment.logo_path as logoPath, experiment.create_time as createTime, experiment.modify_time as modifyTime
+    from experiment,`user`
+    where experiment.fk_user_id = #{userId}
+    and `user`.id = experiment.fk_user_id
+  </select>
+  <select id="checkById" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select count(*)
+    from experiment
+    where id = #{experimentId}
+  </select>
+  <select id="selectByExperimentId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.vo.ExperimentDetailVO">
+    select experiment.id as id, experiment_name as experimentName, experiment.description as description, experiment.fk_user_id as userId,
+    fk_sys_env_id as sysEnvId,fk_algorithm_ids as fkAlgorithmIds,experiment.all_params as allParams,
+    experiment.black_list as blackList, experiment.white_list as whiteList,
+    experiment.performance as performance,
+    metrics_setting as metricsSetting, result_setting as resultSetting,
+    `user`.username as creator, experiment.create_time as createTime, experiment.modify_time as modifyTime
+    from experiment,`user`
+    where experiment.id = #{experimentId}
+    and `user`.id = experiment.fk_user_id
+  </select>
+
+  <!--已废弃-->
+  <select id="selectExperimentBOByExperimentId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.bo.ExperimentBO">
+    select experiment.id as id, experiment.fk_algorithm_id as fkAlgorithmId, experiment.all_params as allParams,
+    experiment.black_list as blackList, experiment.white_list as whiteList,experiment.performance as performance,
+    metrics_setting as metricsSetting, fk_sys_env_id as fkSysEnvId, algorithm.pipeline_id as pipelineId,
+    algorithm.param_value as paramValue
+    from experiment,algorithm
+    where experiment.id = #{experimentId}
+    and algorithm.id = experiment.fk_algorithm_id
+  </select>
+
+  <select id="selectExperimentBOByExperimentId_V2" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.bo.ExperimentBO_V2">
+    select experiment.id as id, experiment.fk_algorithm_ids as fkAlgorithmIds, experiment.all_params as allParams,
+           experiment.black_list as blackList, experiment.white_list as whiteList,experiment.performance as performance,
+           metrics_setting as metricsSetting, fk_sys_env_id as fkSysEnvId
+    from experiment
+    where experiment.id = #{experimentId}
+  </select>
+
+  <select id="selectAllExperimentsByUserId" parameterType="java.lang.Long" resultType="com.bdilab.colosseum.domain.Experiment">
+    select *
+    from experiment
+    where experiment.fk_user_id=#{userId}
+  </select>
+</mapper>
