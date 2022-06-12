@@ -1,12 +1,12 @@
-# Colosseum
+# CTSSBench
 
-The Colosseum is an open source benchmark for automatic configuration tuning research on software systems. The Colosseum mainly helps users to conveniently evaluate and compare the state-of-the-art configuration tuning algorithms in academia and industry, and further choose an appropriate algorithm for a specific software system.
+The CTSSBench is an open source benchmark for automatic configuration tuning research on software systems. The CTSSBench mainly helps users to conveniently evaluate and compare the state-of-the-art configuration tuning algorithms in academia and industry, and further choose an appropriate algorithm for a specific software system.
 
 Our website is [http://120.27.69.55:8020](http://120.27.69.55:8020), where you can find more information about Colosseum, including some related papers on smart tuning algorithms, systems under tune (such as hadoop, redis, tomcat and other software systems), tuning results, as well as our research papers and source code on Colosseum. If you are interested, you can experience the Colosseum project in the [demo](http://120.27.69.55:8020/#/login)
 
 ## Note
 
-The Colosseum currently provides three parameter selection approaches (**select_all**, **lasso_select** and **sensitivity_analysis**) , one sampling method (**random_sample**), two performance modeling methods (**gaussian_process** and **random_forest**), and six search strategies (**actgan**, **genetic_algorithm**, **random_search**, **space_search**, **random_tuning**, and **bo**). 
+The CTSSBench currently provides three parameter selection approaches (**select_all**, **lasso_select** and **sensitivity_analysis**) , one sampling method (**random_sample**), two performance modeling methods (**gaussian_process** and **random_forest**), and six search strategies (**actgan**, **genetic_algorithm**, **random_search**, **space_search**, **random_tuning**, and **bo**). 
 
 ## Preparation
 
