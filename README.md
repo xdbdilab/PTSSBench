@@ -2,7 +2,7 @@
 
 The CTSSBench is an open source benchmark for automatic configuration tuning research on software systems. The CTSSBench mainly helps users to conveniently evaluate and compare the state-of-the-art configuration tuning algorithms in academia and industry, and further choose an appropriate algorithm for a specific software system.
 
-Our website is [http://120.27.69.55:8020](http://120.27.69.55:8020), where you can find more information about Colosseum, including some related papers on smart tuning algorithms, systems under tune (such as hadoop, redis, tomcat and other software systems), tuning results, as well as our research papers and source code on Colosseum. If you are interested, you can experience the Colosseum project in the [demo](http://120.27.69.55:8020/#/login)
+Our website is [http://120.27.69.55:8020](http://120.27.69.55:8020), where you can find more information about CTSSBench, including some related papers on smart tuning algorithms, systems under tune (such as hadoop, redis, tomcat and other software systems), tuning results, as well as our research papers and source code on Colosseum. If you are interested, you can experience the CTSSBench project in the [demo](http://120.27.69.55:8020/#/login)
 
 ## Note
 
